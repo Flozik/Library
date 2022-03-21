@@ -34,4 +34,13 @@ public class Controller {
         Book book = bookService.removeBook(bookId);
         return converter.convertToDto(book);
     }
+
+    @PostMapping("/update/{bookId}")
+    public BookDto updateBook(@PathVariable String bookId,
+                              @RequestBody BookDto bookDto) {
+        bookDto.setId(bookId);
+        Book newBook = converter.convertToEntity(bookDto);
+        Book bookUpdated = bookService.updateBook(newBook);
+        return converter.convertToDto(bookUpdated);
+    }
 }

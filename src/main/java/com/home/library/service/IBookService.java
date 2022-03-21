@@ -1,7 +1,6 @@
 package com.home.library.service;
 
 import com.home.library.db.entity.Book;
-import com.home.library.dto.BookDto;
 
 public interface IBookService {
     /**
@@ -38,4 +37,12 @@ public interface IBookService {
      * @return removed book object or null if book does not remove
      */
     public Book removeBook(Book book);
+
+    /**
+     * update book in database. The book will be updated by book object
+     * @param newBook object for updating
+//     * @param bookDto object which was converted from user
+     * @return updated book object or null if book does not update
+     */
+    public Book updateBook(Book newBook);
 }
