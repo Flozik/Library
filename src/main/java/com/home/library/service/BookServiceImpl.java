@@ -2,7 +2,6 @@ package com.home.library.service;
 
 import com.home.library.db.dao.BookDao;
 import com.home.library.db.entity.Book;
-import com.home.library.dto.BookDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +42,18 @@ public class BookServiceImpl implements IBookService {
     @Override
     public Book removeBook(Book book) {
         return this.removeBook(book.getId());
+    }
+
+    @Override
+    public Book updateBook(Book newBook) {
+        Book oldBook = this.getBook(newBook);
+        if (oldBook.getId().equals(newBook.getId())) {
+            oldBook.setName(newBook.getName());
+            oldBook.setPageCount(newBook.getPageCount());
+            oldBook.setGenre(newBook.getGenre());
+            oldBook.setAuthorId(newBook.getAuthorId());
+        }
+
+        return bookDao.save(oldBook);
     }
 }
