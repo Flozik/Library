@@ -19,20 +19,26 @@ public class Controller {
     @PostMapping("/create-book")
     public BookDto createBook(@RequestBody BookDto bookDto) {
         Book book = converter.convertToEntity(bookDto);
-        Book bookCreated = bookService.saveBook(book);
-        return converter.convertToDto(bookCreated);
+        bookService.saveBook(book);
+        return converter.convertToDto(book);
     }
 
     @GetMapping("/book/{bookId}")
     public BookDto getBookById(@PathVariable String bookId) {
-        Book book = bookService.getBook(bookId);
-        return converter.convertToDto(book);
+        BookDto bookDto = new BookDto();
+        bookDto.setId(bookId);
+        Book book = converter.convertToEntity(bookDto);
+        Book bookCreated = bookService.getBook(book);
+        return converter.convertToDto(bookCreated);
     }
 
     @GetMapping("/delete/{bookId}")
     public BookDto deleteBook(@PathVariable String bookId) {
-        Book book = bookService.removeBook(bookId);
-        return converter.convertToDto(book);
+        BookDto bookDto = new BookDto();
+        bookDto.setId(bookId);
+        Book book = converter.convertToEntity(bookDto);
+        Book bookDeleted = bookService.removeBook(book);
+        return converter.convertToDto(bookDeleted);
     }
 
     @PostMapping("/update/{bookId}")
@@ -40,7 +46,7 @@ public class Controller {
                               @RequestBody BookDto bookDto) {
         bookDto.setId(bookId);
         Book newBook = converter.convertToEntity(bookDto);
-        Book bookUpdated = bookService.updateBook(newBook);
-        return converter.convertToDto(bookUpdated);
+        bookService.updateBook(newBook);
+        return converter.convertToDto(newBook);
     }
 }
