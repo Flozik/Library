@@ -18,6 +18,7 @@ public class Controller {
 
     @PostMapping("/create-book")
     public BookDto createBook(@RequestBody BookDto bookDto) {
+        log.info("Converter method createBook. Input value: {}", bookDto);
         Book book = converter.convertToEntity(bookDto);
         bookService.saveBook(book);
         return converter.convertToDto(book);
@@ -25,6 +26,7 @@ public class Controller {
 
     @GetMapping("/book/{bookId}")
     public BookDto getBookById(@PathVariable String bookId) {
+        log.info("Converter method getBookById. Input value bookId: {}", bookId);
         BookDto bookDto = new BookDto();
         bookDto.setId(bookId);
         Book book = converter.convertToEntity(bookDto);
@@ -34,6 +36,7 @@ public class Controller {
 
     @GetMapping("/delete/{bookId}")
     public BookDto deleteBook(@PathVariable String bookId) {
+        log.info("Converter method deleteBook. Input value bookId: {}", bookId);
         BookDto bookDto = new BookDto();
         bookDto.setId(bookId);
         Book book = converter.convertToEntity(bookDto);
@@ -44,6 +47,8 @@ public class Controller {
     @PostMapping("/update/{bookId}")
     public BookDto updateBook(@PathVariable String bookId,
                               @RequestBody BookDto bookDto) {
+        log.info("Controller method updateBook. Input value: {}\n" +
+                "Input value: {}", bookId, bookDto);
         bookDto.setId(bookId);
         Book newBook = converter.convertToEntity(bookDto);
         bookService.updateBook(newBook);
