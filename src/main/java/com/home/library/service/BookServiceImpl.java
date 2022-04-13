@@ -38,7 +38,7 @@ public class BookServiceImpl implements IBookService {
         /*if (book == null) {
             return null;
         } else {*/
-            bookDao.delete(book);
+        bookDao.delete(book);
 //        }
         return book;
     }
